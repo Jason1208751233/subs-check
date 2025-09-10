@@ -1,0 +1,71 @@
+# ===============================================================
+# 为 claw.cloud PaaS 平台优化配置 (低流量版)
+# By Gemini @ 2025
+# ===============================================================
+
+# 【核心性能参数】
+# 并发连接数，云平台 Pod 性能有限，4-8 即可
+concurrent: 8
+# 检查周期（分钟），控制流量的关键！延长到 720分钟（12小时），极大降低流量。
+check-interval: 720
+# 节点连接超时（毫秒）
+timeout: 10000
+
+# 【测速与筛选】
+# 【关键】测速文件URL，留空即可彻底关闭测速功能，这是节省流量的核心！
+speed-test-url:
+# 最小速度（KB/s），设置为 0 等同于不做速度限制
+min-speed: 0
+# 下载测速超时（秒）
+download-timeout: 15
+
+# 【订阅链接】
+# 这是流量消耗的主要来源！我已经为您精简到约15个看起来质量较高的链接。
+# 粗略计算: 假设每个链接平均5MB，15个链接就是75MB。每天检查2次就是150MB，一个月约 4.5GB，远低于您20GB的要求。
+sub-urls:
+  - https://raw.githubusercontent.com/snakem982/proxypool/main/source/clash-meta.yaml
+  - https://raw.githubusercontent.com/go4sharing/sub/main/sub.yaml
+  - https://raw.githubusercontent.com/mahdibland/ShadowsocksAggregator/master/Eternity.yml
+  - https://raw.githubusercontent.com/ermaozi/get_subscribe/main/subscribe/clash.yml
+  - https://raw.githubusercontent.com/vxiaov/free_proxies/main/clash/clash.provider.yaml
+  - https://raw.githubusercontent.com/zhangkaiitugithub/passcro/main/speednodes.yaml
+  - https://raw.githubusercontent.com/anaer/Sub/main/clash.yaml
+  - https://raw.githubusercontent.com/peasoft/NoMoreWalls/master/list.yml
+  - https://raw.githubusercontent.com/mfuu/v2ray/master/clash.yaml
+  - https://raw.githubusercontent.com/MrMohebi/xray-grabber-telegram/master/collected-proxies/clash-meta/all.yaml
+  - https://raw.githubusercontent.com/ts-sf/fly/main/clash
+  - https://raw.githubusercontent.com/NiceVPN123/NiceVPN/main/Clash.yaml
+  - https://raw.githubusercontent.com/lagzian/SS-Collector/main/SS/trinity_clash.yaml
+  - https://raw.githubusercontent.com/Barabama/FreeNodes/main/nodes/clashmeta.txt
+  - https://raw.githubusercontent.com/PuddinCat/BestClash/refs/heads/main/proxies.yaml
+
+# 订阅链接请求重试次数
+sub-urls-retry: 3
+
+# 【输出方式】
+# 在容器化平台中，直接通过 API 访问是最好的方式。
+# save-method 留空或删除即可，因为默认就是通过API和Web UI提供服务。
+save-method:
+
+# 【Web UI 和 API 设置】
+# 启用Web UI，方便您在浏览器中查看状态
+enable-web-ui: true
+# Web UI 监听端口，平台会自动处理端口映射，我们只需指定容器内的端口
+listen-port: :8199
+# 新版 API 密钥，用于访问 API，请务必修改为一个复杂的密码
+api-key: "YourOwnSecretKey2025"
+# 本地订阅转换端口
+sub-store-port: :8299
+
+# 【高级选项】
+# GitHub 代理，保留自动选择，以防服务器访问GitHub困难
+githubproxy: 自动选择
+github-proxy: https://proxydl.lcayun.cn/
+# 关闭节点重命名
+rename-node: false
+# 关闭流媒体检查，节省流量
+media-check: false
+# 始终保留所有有效节点
+keep-success-proxies: true
+# 在日志中打印进度
+print-progress: true
